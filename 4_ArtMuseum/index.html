@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Obsidian Gallery — An AI Art Museum</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Ambient Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-brand">
+            <span class="nav-icon">&#9670;</span>
+            <span class="nav-title">The Obsidian Gallery</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle-top">Welcome to</p>
+            <h1 class="hero-title">The Obsidian<br>Gallery</h1>
+            <div class="hero-divider">
+                <span class="divider-diamond">&#9670;</span>
+            </div>
+            <p class="hero-subtitle">A Curated Collection of AI-Generated Art</p>
+            <p class="hero-description">Exploring the boundaries of imagination through generative artificial intelligence.<br>Fantasy. Grimdark. The Abstract. The Epic.</p>
+            <a href="#collection" class="hero-cta">Enter the Gallery</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- Collection Section -->
+    <section id="collection" class="collection">
+        <div class="section-header">
+            <p class="section-label">The Collection</p>
+            <h2 class="section-title">Featured Works</h2>
+            <div class="section-divider">
+                <span class="divider-diamond">&#9670;</span>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Works</button>
+            <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+            <button class="filter-btn" data-filter="grimdark">Grimdark</button>
+            <button class="filter-btn" data-filter="abstract">Abstract</button>
+            <button class="filter-btn" data-filter="scifi">Sci-Fi</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+
+            <!-- Art Piece 1 -->
+            <div class="art-card" data-category="grimdark">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="lastStand.png" alt="The Last Stand">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">001</span>
+                        <h3 class="art-title">The Last Stand</h3>
+                        <p class="art-description">A lone warrior in crimson armor holds the line against an overwhelming alien swarm, bolter blazing through ash and fire, an Imperial Titan looming through the smoke behind him.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Grimdark</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Piece 2 -->
+            <div class="art-card" data-category="abstract">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="mindIgnited.png" alt="The Mind Ignited">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">002</span>
+                        <h3 class="art-title">The Mind Ignited</h3>
+                        <p class="art-description">A human profile dissolves into ribbons of vivid color — gold, crimson, teal, and violet — swirling outward like an explosion of pure thought against a stark white void.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Abstract</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Piece 3 -->
+            <div class="art-card" data-category="fantasy">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="arcaneGeneral.png" alt="The Arcane General">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">003</span>
+                        <h3 class="art-title">The Arcane General</h3>
+                        <p class="art-description">Atop a ruined fortress, a battle-mage in dark crimson and gold armor conjures twin glowing sigils while an ancient tome of forbidden knowledge floats at his side beneath a lightning-torn sky.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Fantasy</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Art Piece 4 — Sister of Battle -->
+            <div class="art-card" data-category="grimdark">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="battleSister.png" alt="Daughter of War">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">004</span>
+                        <h3 class="art-title">Daughter of War</h3>
+                        <p class="art-description">A portrait of a holy warrior nun clad in burnished silver and gold power armor adorned with purity seals and sacred relics, power sword in hand, cathedral ruins burning behind her in righteous fury.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Grimdark</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 5 — Lady of the Lake -->
+            <div class="art-card" data-category="fantasy">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="ladyOfTheLake.png" alt="Lady of the Lake">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">005</span>
+                        <h3 class="art-title">Lady of the Lake</h3>
+                        <p class="art-description">A mystical elven spirit emerges from moonlit waters in flowing emerald and silver robes, one hand conjuring starlight while a legendary sword rises from the lake beside her.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Fantasy</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 6 — The Crew -->
+            <div class="art-card" data-category="scifi">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="desertCrew.png" alt="The Crew">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">006</span>
+                        <h3 class="art-title">The Crew</h3>
+                        <p class="art-description">A diverse starship crew — scarred captain, four-eyed alien navigator, cyborg engineer, robed psychic, and heavily armed marine — stands before their battered vessel on a desert world at golden hour.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Sci-Fi</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 7 — The Rogue -->
+            <div class="art-card" data-category="scifi">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="theRogue.png" alt="The Rogue">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">007</span>
+                        <h3 class="art-title">The Rogue</h3>
+                        <p class="art-description">A mysterious female rogue in a long leather coat perches on a gothic rooftop at night, surrounded by stray cats, a neon city glowing below — rendered in high-contrast black and white ink with classic crosshatching.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Sci-Fi</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 8 — The Dreaming Wanderer -->
+            <div class="art-card" data-category="fantasy">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="knightMare.png" alt="The Dreaming Wanderer">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">008</span>
+                        <h3 class="art-title">The Dreaming Wanderer</h3>
+                        <p class="art-description">A weary adventurer lies in golden tall grass with a loyal white dog on his chest, sword planted in the earth beside him, while a dream cloud above reveals a dramatic battle with dragons and knights.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Fantasy</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 9 — Chaos Unleashed -->
+            <div class="art-card" data-category="abstract">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="chaosAndGold.png" alt="Chaos Unleashed">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">009</span>
+                        <h3 class="art-title">Chaos Unleashed</h3>
+                        <p class="art-description">An abstract expressionist vision of a massive battle — warrior forms, explosions, and war machines dissolving into violent splashes of red, black, gold, and purple, heavy impasto texture suggesting carnage without literal figures.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Abstract</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Art Piece 10 — The Emperor's Crusade -->
+            <div class="art-card" data-category="grimdark">
+                <div class="art-card-inner">
+                    <div class="art-image-wrapper">
+                        <img src="crusadeMarch.png" alt="The Emperor's Crusade">
+                        <div class="art-overlay">
+                            <span class="art-view">View Piece</span>
+                        </div>
+                    </div>
+                    <div class="art-info">
+                        <span class="art-number">010</span>
+                        <h3 class="art-title">The Emperor's Crusade</h3>
+                        <p class="art-description">A massive golden army marches across a shattered alien world, led by a towering general wielding a glowing power fist, Imperial war machines flanking the column beneath twin suns setting in a brooding sky.</p>
+                        <div class="art-meta">
+                            <span class="art-tag">Grimdark</span>
+                            <span class="art-tool">Created with DALL·E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="section-header">
+                <p class="section-label">About the Museum</p>
+                <h2 class="section-title">The Vision</h2>
+                <div class="section-divider">
+                    <span class="divider-diamond">&#9670;</span>
+                </div>
+            </div>
+            <div class="about-content">
+                <p class="about-text">
+                    <strong>The Obsidian Gallery</strong> is a curated online art museum exploring the creative frontier of generative AI. Each piece in this collection was crafted using text-to-image AI models, guided by human imagination and artistic vision.
+                </p>
+                <p class="about-text">
+                    The themes draw from grimdark science fiction, high fantasy, abstract expressionism, and epic narrative art — worlds where heroes stand against impossible odds and color itself becomes a language of emotion.
+                </p>
+                <p class="about-text">
+                    This museum was created as part of an academic exploration into AI-generated art. All images were generated using <strong>DALL·E</strong> by OpenAI.
+                </p>
+            </div>
+            <div class="about-stats">
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Works on Display</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Themes Explored</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">AI Tool Used</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="nav-icon">&#9670;</span>
+                <span>The Obsidian Gallery</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 — All images generated with AI. Created for academic purposes.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
