@@ -3,10 +3,10 @@
    ================================================================
    UPDATE EACH SONG BELOW:
      cover : relative path to your cover image
-             e.g. "5_GeneticAlgorithms/AI Music/Made of Everything/cover.jpg"
+             e.g. "AI Music/Made of Everything/cover.jpg"
              Change .png to .jpg if that is your file extension.
      audio : relative path to your audio file
-             e.g. "5_GeneticAlgorithms/AI Music/Made of Everything/track.wav"
+             e.g. "AI Music/Made of Everything/track.wav"
              Change .wav to .mp3 if needed.
      tool  : the AI tool used to generate this song
              e.g. "Suno AI", "Udio", "Stable Audio"
@@ -15,80 +15,80 @@
 const SONGS = [
   {
     title: "Made of Everything",
-    cover: "5_GeneticAlgorithms/AI Music/Made of Everything/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Made of Everything/audio.wav",
+    cover: "AI Music/Made of Everything/made_of_everything.png",
+    audio: "AI Music/Made of Everything/MADE OF EVERYTHING.v1.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Made of Everything" feels expansive and emotionally layered, with a sense of scale that suggests memory, identity, and many conflicting pieces trying to coexist in one body. Its immersive atmosphere and broader emotional sweep make it a strong fit for playlists built around self-reckoning, transformation, and the feeling of carrying too much and somehow still holding together.',
   },
   {
     title: "Man in the Glass",
-    cover: "5_GeneticAlgorithms/AI Music/Man in the Glass/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Man in the Glass/audio.wav",
+    cover: "AI Music/Man in the Glass/man_in_the_glass.png",
+    audio: "AI Music/Man in the Glass/Man in the Glass.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  "\"Man in the Glass\" feels like a dark, cinematic confrontation with identity, loss, and the version of yourself that still waits on the other side of regret. Its reflective atmosphere and emotional weight make it a strong fit for playlists built around survivor's guilt, inner conflict, and late-night reckoning.",
   },
   {
     title: "The Letting",
-    cover: "5_GeneticAlgorithms/AI Music/The Letting/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/The Letting/audio.wav",
+    cover: "AI Music/The Letting/the_letting.png",
+    audio: "AI Music/The Letting/The Letting.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"The Letting" feels like a slow burning, emotionally weighty track that leans into release rather than collapse, carrying a steady sense of tension through a broader, more dynamic arc. Its polished atmosphere and lingering gravity make it a strong fit for playlists built around surrender, aftermath, and the hard calm that follows emotional rupture.',
   },
   {
     title: "Salt the Earth",
-    cover: "5_GeneticAlgorithms/AI Music/Salt the Earth/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Salt the Earth/audio.wav",
+    cover: "AI Music/Salt the Earth/salt_the_earth.png",
+    audio: "AI Music/Salt the Earth/Salt the Earth.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Salt the Earth" feels like a larger, more scorched emotional statement than a quiet mood piece, with a dense, forceful presence that suggests aftermath, ruin, and resolve rather than simple sadness. Its sustained intensity and broader scale make it a strong fit for playlists built around reckoning, bitterness, endurance, and the long shadow left after something has been burned down.',
   },
   {
     title: "Find Me in the Dark",
-    cover: "5_GeneticAlgorithms/AI Music/Find Me in the Dark/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Find Me in the Dark/audio.wav",
+    cover: "AI Music/Find Me in the Dark/find_me_in_the_dark.png",
+    audio: "AI Music/Find Me in the Dark/Find Me in the Dark.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Find Me in the Dark" feels like a slow-burning, nocturnal track with more emotional range than a straight mood piece, unfolding with a larger sense of space and release. Its shadowed atmosphere and lingering intensity make it a strong fit for playlists built around longing, isolation, and the need to be reached when everything else has gone dim.',
   },
   {
     title: "Where We Meet",
-    cover: "5_GeneticAlgorithms/AI Music/Where We Meet/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Where We Meet/audio.wav",
+    cover: "AI Music/Where We Meet/where_we_meet.png",
+    audio: "AI Music/Where We Meet/Where We Meet.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Where We Meet" feels like a cinematic, emotionally centered track that pairs reflective atmosphere with a quiet sense of connection and inevitability. Its polished, immersive mood makes it a strong fit for playlists built around distance, longing, reunion, and late-night emotional clarity.',
   },
   {
     title: "Stolen Shadow",
-    cover: "5_GeneticAlgorithms/AI Music/Stolen Shadow/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Stolen Shadow/audio.wav",
+    cover: "AI Music/Stolen Shadow/stolen_shadow.png",
+    audio: "AI Music/Stolen Shadow/Stolen Shadow.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Stolen Shadow" feels like a dark, slow-burning track with a tense, cinematic edge, carrying the sense of something intimate slipping just out of reach. Its brooding atmosphere and steady emotional pressure make it a strong fit for playlists built around loss, pursuit, and the parts of yourself that disappear in the dark.',
   },
   {
     title: "Not Far Now",
-    cover: "5_GeneticAlgorithms/AI Music/Not_Far_Now/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Not_Far_Now/audio.wav",
+    cover: "AI Music/Not_Far_Now/not_far_now.png",
+    audio: "AI Music/Not_Far_Now/Not Far Now.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Not Far Now" feels like a cinematic, forward-moving track that balances late-night reflection with a quiet sense of hope. Its polished atmosphere and steady emotional lift make it a strong fit for playlists built around perseverance, distance, and the feeling of finally nearing the light.',
   },
   {
     title: "Rusted Halo",
-    cover: "5_GeneticAlgorithms/AI Music/Rusted Halo/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Rusted Halo/audio.wav",
+    cover: "AI Music/Rusted Halo/rusted_halo.png",
+    audio: "AI Music/Rusted Halo/Rusted Halo.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Rusted Halo" feels like a dark, slow-burning track with a worn metallic edge, balancing heaviness and polish in a way that suggests tension without losing control. Its steady intensity and brooding atmosphere make it well suited for playlists built around nocturnal alternative moods, emotional grit, and cinematic weight.',
   },
   {
     title: "Crossroad Waltz",
-    cover: "5_GeneticAlgorithms/AI Music/Crossroad Waltz/cover.png",
-    audio: "5_GeneticAlgorithms/AI Music/Crossroad Waltz/audio.wav",
+    cover: "AI Music/Crossroad Waltz/crossroad_waltz.png",
+    audio: "AI Music/Crossroad Waltz/Crosroad Waltz.mp3",
     tool:  "[AI Tool Used]",
     year:  "2026",
     desc:  '"Crossroad Waltz" feels like a cinematic, emotionally layered track that carries more movement and release than its title first suggests, balancing reflection with a steady sense of momentum. Its polished atmosphere and broader dynamic sweep make it a strong fit for playlists built around turning points, distance, and the uneasy grace of choosing a way forward.',
