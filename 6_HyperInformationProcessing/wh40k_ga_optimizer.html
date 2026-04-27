@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warhammer 40K — Genetic Algorithm Optimizer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0c;
+    color: #e8dcc8;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .app {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #BA7517, #8B1A1A, #BA7517, transparent);
+    margin: 10px 0;
+  }
+  .header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: #C9A84C;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(201,168,76,0.35);
+    margin: 4px 0;
+  }
+  .header p {
+    font-size: 11px;
+    color: #8B1A1A;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #2a2410;
+    margin-bottom: 20px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #5a5040;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #C9A84C; }
+  .tab-btn.active { color: #C9A84C; border-bottom-color: #8B1A1A; }
+
+  /* ── STAT CARDS ── */
+  .stat-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .stat-card {
+    flex: 1;
+    background: #111114;
+    border: 1px solid #2a2410;
+    border-top: 2px solid;
+    padding: 12px 16px;
+    border-radius: 4px;
+  }
+  .stat-card .label {
+    font-size: 10px;
+    color: #6a6050;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stat-card .value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #e8dcc8;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    height: 5px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #8B1A1A;
+    border-radius: 3px;
+    transition: width 0.1s linear, background 0.3s;
+  }
+
+  /* ── MAIN GRID ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  /* ── PANELS ── */
+  .panel {
+    background: #0e0e11;
+    border: 1px solid #2a2410;
+    border-top: 1px solid #BA751744;
+    border-radius: 6px;
+    padding: 14px;
+    position: relative;
+  }
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 10px; height: 10px;
+    border-top: 2px solid #BA7517;
+    border-left: 2px solid #BA7517;
+  }
+  .panel::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 10px; height: 10px;
+    border-bottom: 2px solid #BA7517;
+    border-right: 2px solid #BA7517;
+  }
+  .panel-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    color: #BA7517;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ── CHART ── */
+  #chart-wrap { position: relative; height: 210px; }
+
+  /* ── SOLUTION ITEMS ── */
+  .sol-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    background: #0a0a0d;
+    border-left: 2px solid #8B1A1A;
+    font-size: 12px;
+  }
+  .sol-item:nth-child(even) { border-left-color: #BA7517; }
+  .sol-item .sol-name { color: #e8dcc8; }
+  .sol-item .sol-stat { color: #BA7517; font-size: 10px; }
+
+  .sol-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 7px 10px;
+    background: rgba(186, 117, 23, 0.1);
+    border: 1px solid #BA751744;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  .sol-total .label { color: #BA7517; }
+  .sol-total .value { color: #e8dcc8; font-weight: bold; }
+
+  .army-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .army-stat-card {
+    background: rgba(139, 26, 26, 0.12);
+    border: 1px solid #8B1A1A44;
+    border-radius: 3px;
+    text-align: center;
+    padding: 5px 0;
+  }
+  .army-stat-card .a-label { font-size: 9px; color: #6a6050; letter-spacing: 2px; }
+  .army-stat-card .a-value { font-size: 18px; font-weight: bold; color: #8B1A1A; }
+
+  .empty-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 170px;
+    color: #3a3030;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  /* ── CONTROLS ── */
+  .controls { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    padding: 11px 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+    border: 1px solid;
+  }
+  .btn-run {
+    flex: 1;
+    background: rgba(139, 26, 26, 0.15);
+    border-color: #8B1A1A;
+    color: #e8dcc8;
+  }
+  .btn-run:hover { background: rgba(139, 26, 26, 0.35); }
+  .btn-pause {
+    flex: 1;
+    background: rgba(186, 117, 23, 0.15);
+    border-color: #BA7517;
+    color: #C9A84C;
+  }
+  .btn-pause:hover { background: rgba(186, 117, 23, 0.3); }
+  .btn-reset {
+    background: transparent;
+    border-color: #3a3020;
+    color: #6a6050;
+  }
+  .btn-reset:hover { border-color: #6a6050; color: #9a9080; }
+  .badge-done {
+    padding: 8px 14px;
+    background: rgba(186, 117, 23, 0.12);
+    border: 1px solid #BA7517;
+    border-radius: 3px;
+    font-size: 9px;
+    color: #BA7517;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: none;
+  }
+  .badge-done.visible { display: block; }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-rule"></div>
+    <h1>&#9881; Adeptus Mechanicus</h1>
+    <p>Genetic Algorithm — War Doctrine Optimizer</p>
+    <div class="header-rule"></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('squad')">Squad Loadout</button>
+    <button class="tab-btn" onclick="switchTab('army')">Army Composition</button>
+  </div>
+
+  <!-- SQUAD TAB -->
+  <div class="tab-panel active" id="tab-squad">
+    <div class="stat-row">
+      <div class="stat-card" style="border-top-color:#BA7517">
+        <div class="label">Generation</div>
+        <div class="value" id="s-gen">0 / 80</div>
+      </div>
+      <div class="stat-card" style="border-top-color:#8B1A1A">
+        <div class="label">Best Damage</div>
+        <div class="value" id="s-fitness">—</div>
+      </div>
+      <div class="stat-card" style="border-top-color:#BA7517">
+        <div class="label">Points Used</div>
+        <div class="value" id="s-pts">— / 60</div>
+      </div>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="s-progress"></div></div>
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-title">Fitness Evolution</div>
+        <div id="chart-wrap"><canvas id="squad-chart" role="img" aria-label="Line chart showing squad loadout fitness improving over generations">Fitness chart loading...</canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Optimal Loadout</div>
+        <div id="s-solution"><div class="empty-msg">Awaiting orders...</div></div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-run" id="s-run-btn" onclick="squadAction()">Run Algorithm</button>
+      <button class="btn btn-reset" onclick="resetSquad()">Reset</button>
+      <div class="badge-done" id="s-done-badge">Optimized</div>
+    </div>
+  </div>
+
+  <!-- ARMY TAB -->
+  <div class="tab-panel" id="tab-army">
+    <div class="stat-row">
+      <div class="stat-card" style="border-top-color:#BA7517">
+        <div class="label">Generation</div>
+        <div class="value" id="a-gen">0 / 80</div>
+      </div>
+      <div class="stat-card" style="border-top-color:#8B1A1A">
+        <div class="label">Best Score</div>
+        <div class="value" id="a-fitness">—</div>
+      </div>
+      <div class="stat-card" style="border-top-color:#BA7517">
+        <div class="label">Points Used</div>
+        <div class="value" id="a-pts">— / 500</div>
+      </div>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="a-progress"></div></div>
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-title">Fitness Evolution</div>
+        <div id="chart-wrap-a"><canvas id="army-chart" role="img" aria-label="Line chart showing army composition fitness improving over generations">Fitness chart loading...</canvas></div>
+        <div style="position:relative;height:210px;display:none" id="army-chart-wrap-inner"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Optimal Army</div>
+        <div id="a-solution"><div class="empty-msg">Awaiting orders...</div></div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-run" id="a-run-btn" onclick="armyAction()">Run Algorithm</button>
+      <button class="btn btn-reset" onclick="resetArmy()">Reset</button>
+      <div class="badge-done" id="a-done-badge">Optimized</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════
+const WEAPONS = [
+  { name: "Bolter",       dmg: 4,  pts: 5  },
+  { name: "Plasma Gun",   dmg: 8,  pts: 13 },
+  { name: "Melta Gun",    dmg: 10, pts: 14 },
+  { name: "Flamer",       dmg: 6,  pts: 9  },
+  { name: "Heavy Bolter", dmg: 7,  pts: 10 },
+  { name: "Lascannon",    dmg: 12, pts: 20 },
+  { name: "Power Sword",  dmg: 6,  pts: 8  },
+  { name: "Chainsword",   dmg: 3,  pts: 3  },
+];
+
+const UNITS = [
+  { name: "Tactical Squad",   atk: 6, def: 5, mob: 4, pts: 90  },
+  { name: "Assault Squad",    atk: 7, def: 4, mob: 8, pts: 110 },
+  { name: "Devastator Squad", atk: 9, def: 4, mob: 2, pts: 120 },
+  { name: "Terminator Squad", atk: 8, def: 9, mob: 2, pts: 180 },
+  { name: "Scout Squad",      atk: 5, def: 3, mob: 7, pts: 70  },
+  { name: "Land Raider",      atk:10, def:10, mob: 3, pts: 350 },
+  { name: "Rhino",            atk: 2, def: 7, mob: 8, pts: 80  },
+  { name: "Dreadnought",      atk: 9, def: 8, mob: 4, pts: 160 },
+];
+
+const SQUAD_SIZE = 5, SQUAD_LIMIT = 60;
+const ARMY_SLOTS = 5, ARMY_LIMIT  = 500;
+const POP_SIZE   = 40;
+const MUT_RATE   = 0.13;
+const MAX_GEN    = 80;
+const TICK_MS    = 100;
+
+// ════════════════════════════════════════════════
+// GA ENGINE
+// ════════════════════════════════════════════════
+const rnd = n => Math.floor(Math.random() * n);
+
+function tournament(scored) {
+  const a = scored[rnd(scored.length)], b = scored[rnd(scored.length)];
+  return a.f >= b.f ? a.c : b.c;
+}
+
+function evolve(pop, fitFn, mutateFn) {
+  const scored = pop.map(c => ({ c, f: fitFn(c) })).sort((a, b) => b.f - a.f);
+  const next = [scored[0].c.slice(), scored[1].c.slice()];
+  while (next.length < POP_SIZE) {
+    const pa = tournament(scored), pb = tournament(scored);
+    const pt = rnd(pa.length);
+    const child = [...pa.slice(0, pt), ...pb.slice(pt)];
+    next.push(mutateFn(child));
+  }
+  return { next, best: scored[0] };
+}
+
+// Squad
+const newSquadChrom = () => Array.from({ length: SQUAD_SIZE }, () => rnd(WEAPONS.length));
+const squadFit = c => {
+  const pts = c.reduce((s, i) => s + WEAPONS[i].pts, 0);
+  return pts > SQUAD_LIMIT ? 0 : c.reduce((s, i) => s + WEAPONS[i].dmg, 0);
+};
+const mutateSquad = c => c.map(g => Math.random() < MUT_RATE ? rnd(WEAPONS.length) : g);
+
+// Army
+const newArmyChrom = () => Array.from({ length: ARMY_SLOTS }, () => rnd(UNITS.length));
+const armyFit = c => {
+  const pts = c.reduce((s, i) => s + UNITS[i].pts, 0);
+  if (pts > ARMY_LIMIT) return 0;
+  return c.reduce((s, i) => UNITS[i].atk + UNITS[i].def + UNITS[i].mob + s, 0);
+};
+const mutateArmy = c => c.map(g => Math.random() < MUT_RATE ? rnd(UNITS.length) : g);
+
+// ════════════════════════════════════════════════
+// CHARTS
+// ════════════════════════════════════════════════
+let squadChart, armyChart;
+
+function makeChart(id) {
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext('2d');
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Fitness',
+        data: [],
+        borderColor: '#8B1A1A',
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.3,
+        fill: {
+          target: 'origin',
+          above: 'rgba(139,26,26,0.08)'
+        }
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: { legend: { display: false }, tooltip: {
+        backgroundColor: '#0e0e11',
+        borderColor: '#BA7517',
+        borderWidth: 1,
+        titleColor: '#BA7517',
+        bodyColor: '#e8dcc8',
+        titleFont: { family: "'Share Tech Mono', monospace", size: 11 },
+        bodyFont: { family: "'Share Tech Mono', monospace", size: 11 },
+        callbacks: { title: items => `Gen ${items[0].label}`, label: item => `Fitness: ${item.raw}` }
+      }},
+      scales: {
+        x: {
+          ticks: { color: '#5a5040', font: { family: "'Share Tech Mono', monospace", size: 10 }, maxTicksLimit: 8 },
+          grid: { color: '#1a1a1a' },
+          border: { color: '#2a2020' }
+        },
+        y: {
+          ticks: { color: '#5a5040', font: { family: "'Share Tech Mono', monospace", size: 10 } },
+          grid: { color: '#1a1a1a' },
+          border: { color: '#2a2020' },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+// ════════════════════════════════════════════════
+// SQUAD STATE & LOGIC
+// ════════════════════════════════════════════════
+let sPop = null, sInterval = null, sGen = 0, sBestChrom = null, sRunning = false, sDone = false;
+
+function initSquad() {
+  sPop = Array.from({ length: POP_SIZE }, newSquadChrom);
+  sGen = 0; sBestChrom = null; sRunning = false; sDone = false;
+}
+
+function resetSquad() {
+  clearInterval(sInterval);
+  initSquad();
+  if (squadChart) { squadChart.data.labels = []; squadChart.data.datasets[0].data = []; squadChart.update(); }
+  document.getElementById('s-gen').textContent = '0 / 80';
+  document.getElementById('s-fitness').textContent = '—';
+  document.getElementById('s-pts').textContent = '— / 60';
+  document.getElementById('s-progress').style.width = '0%';
+  document.getElementById('s-progress').style.background = '#8B1A1A';
+  document.getElementById('s-solution').innerHTML = '<div class="empty-msg">Awaiting orders...</div>';
+  document.getElementById('s-run-btn').textContent = 'Run Algorithm';
+  document.getElementById('s-run-btn').className = 'btn btn-run';
+  document.getElementById('s-done-badge').className = 'badge-done';
+}
+
+function squadAction() {
+  if (sDone) { resetSquad(); return; }
+  if (sRunning) {
+    clearInterval(sInterval); sRunning = false;
+    document.getElementById('s-run-btn').textContent = 'Resume';
+    return;
+  }
+  if (!sPop) initSquad();
+  sRunning = true;
+  document.getElementById('s-run-btn').textContent = 'Pause';
+  document.getElementById('s-run-btn').className = 'btn btn-pause';
+
+  sInterval = setInterval(() => {
+    if (sGen >= MAX_GEN) {
+      clearInterval(sInterval); sRunning = false; sDone = true;
+      document.getElementById('s-run-btn').textContent = 'Run Again';
+      document.getElementById('s-run-btn').className = 'btn btn-run';
+      document.getElementById('s-done-badge').className = 'badge-done visible';
+      document.getElementById('s-progress').style.background = '#BA7517';
+      return;
+    }
+    const { next, best } = evolve(sPop, squadFit, mutateSquad);
+    sPop = next; sGen++; sBestChrom = best.c;
+
+    const pct = Math.round((sGen / MAX_GEN) * 100);
+    document.getElementById('s-gen').textContent = sGen + ' / 80';
+    document.getElementById('s-fitness').textContent = best.f;
+    document.getElementById('s-pts').textContent = best.c.reduce((s,i)=>s+WEAPONS[i].pts,0) + ' / 60';
+    document.getElementById('s-progress').style.width = pct + '%';
+
+    squadChart.data.labels.push(sGen);
+    squadChart.data.datasets[0].data.push(best.f);
+    squadChart.update('none');
+
+    renderSquadSolution(best.c);
+  }, TICK_MS);
+}
+
+function renderSquadSolution(chrom) {
+  const weapons = chrom.map(i => WEAPONS[i]);
+  const totalPts = weapons.reduce((s,w) => s+w.pts, 0);
+  const totalDmg = weapons.reduce((s,w) => s+w.dmg, 0);
+  let html = '';
+  weapons.forEach((w, i) => {
+    html += `<div class="sol-item"><span class="sol-name">Marine ${i+1} — ${w.name}</span><span class="sol-stat">DMG ${w.dmg} | ${w.pts}pts</span></div>`;
+  });
+  html += `<div class="sol-total"><span class="label">Total damage</span><span class="value">${totalDmg} dmg &nbsp;|&nbsp; ${totalPts}/60 pts</span></div>`;
+  document.getElementById('s-solution').innerHTML = html;
+}
+
+// ════════════════════════════════════════════════
+// ARMY STATE & LOGIC
+// ════════════════════════════════════════════════
+let aPop = null, aInterval = null, aGen = 0, aBestChrom = null, aRunning = false, aDone = false;
+
+function initArmy() {
+  aPop = Array.from({ length: POP_SIZE }, newArmyChrom);
+  aGen = 0; aBestChrom = null; aRunning = false; aDone = false;
+}
+
+function resetArmy() {
+  clearInterval(aInterval);
+  initArmy();
+  if (armyChart) { armyChart.data.labels = []; armyChart.data.datasets[0].data = []; armyChart.update(); }
+  document.getElementById('a-gen').textContent = '0 / 80';
+  document.getElementById('a-fitness').textContent = '—';
+  document.getElementById('a-pts').textContent = '— / 500';
+  document.getElementById('a-progress').style.width = '0%';
+  document.getElementById('a-progress').style.background = '#8B1A1A';
+  document.getElementById('a-solution').innerHTML = '<div class="empty-msg">Awaiting orders...</div>';
+  document.getElementById('a-run-btn').textContent = 'Run Algorithm';
+  document.getElementById('a-run-btn').className = 'btn btn-run';
+  document.getElementById('a-done-badge').className = 'badge-done';
+}
+
+function armyAction() {
+  if (aDone) { resetArmy(); return; }
+  if (aRunning) {
+    clearInterval(aInterval); aRunning = false;
+    document.getElementById('a-run-btn').textContent = 'Resume';
+    return;
+  }
+  if (!aPop) initArmy();
+  aRunning = true;
+  document.getElementById('a-run-btn').textContent = 'Pause';
+  document.getElementById('a-run-btn').className = 'btn btn-pause';
+
+  aInterval = setInterval(() => {
+    if (aGen >= MAX_GEN) {
+      clearInterval(aInterval); aRunning = false; aDone = true;
+      document.getElementById('a-run-btn').textContent = 'Run Again';
+      document.getElementById('a-run-btn').className = 'btn btn-run';
+      document.getElementById('a-done-badge').className = 'badge-done visible';
+      document.getElementById('a-progress').style.background = '#BA7517';
+      return;
+    }
+    const { next, best } = evolve(aPop, armyFit, mutateArmy);
+    aPop = next; aGen++; aBestChrom = best.c;
+
+    const pct = Math.round((aGen / MAX_GEN) * 100);
+    document.getElementById('a-gen').textContent = aGen + ' / 80';
+    document.getElementById('a-fitness').textContent = best.f;
+    document.getElementById('a-pts').textContent = best.c.reduce((s,i)=>s+UNITS[i].pts,0) + ' / 500';
+    document.getElementById('a-progress').style.width = pct + '%';
+
+    armyChart.data.labels.push(aGen);
+    armyChart.data.datasets[0].data.push(best.f);
+    armyChart.update('none');
+
+    renderArmySolution(best.c);
+  }, TICK_MS);
+}
+
+function renderArmySolution(chrom) {
+  const units = chrom.map(i => UNITS[i]);
+  const pts   = units.reduce((s,u) => s+u.pts, 0);
+  const atk   = units.reduce((s,u) => s+u.atk, 0);
+  const def   = units.reduce((s,u) => s+u.def, 0);
+  const mob   = units.reduce((s,u) => s+u.mob, 0);
+  let html = '';
+  units.forEach((u,i) => {
+    html += `<div class="sol-item"><span class="sol-name">${u.name}</span><span class="sol-stat">A${u.atk} D${u.def} M${u.mob} | ${u.pts}pts</span></div>`;
+  });
+  html += `<div class="army-stats">
+    <div class="army-stat-card"><div class="a-label">ATK</div><div class="a-value">${atk}</div></div>
+    <div class="army-stat-card"><div class="a-label">DEF</div><div class="a-value" style="color:#BA7517">${def}</div></div>
+    <div class="army-stat-card"><div class="a-label">MOB</div><div class="a-value">${mob}</div></div>
+  </div>
+  <div class="sol-total" style="margin-top:8px"><span class="label">Budget used</span><span class="value" style="color:${pts<=500?'#4a9a4a':'#8B1A1A'}">${pts} / 500 pts</span></div>`;
+  document.getElementById('a-solution').innerHTML = html;
+}
+
+// ════════════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn')[tab === 'squad' ? 0 : 1].classList.add('active');
+}
+
+// ════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  squadChart = makeChart('squad-chart');
+  armyChart  = makeChart('army-chart');
+  document.getElementById('chart-wrap').style.height = '210px';
+  document.getElementById('chart-wrap-a').style.height = '210px';
+  initSquad();
+  initArmy();
+});
+</script>
+</body>
+</html>
