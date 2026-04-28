@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Hyper-Productivity | CSC150 Entrepreneurship Case Study</title>
+
+  <!-- ── GOOGLE FONTS ──────────────────────────────────────────
+       Inter: body / UI text (existing choice — keep for consistency)
+       We load weights 400, 500, 600, 700, 800 to cover all use cases.
+  ──────────────────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- ── CHART.JS CDN ──────────────────────────────────────────
+       We use Chart.js (v4) for the financial 36-month line chart
+       and market-size bar chart. Loaded from Cloudflare CDN.
+  ──────────────────────────────────────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       NAV BAR
+       Fixed top nav. .scrolled class added by JS on scroll > 20px.
+       Nav now includes SWOT and Financial links (new sections).
+  ════════════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">AI Hyper-Productivity</div>
+
+      <!-- Desktop nav links -->
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#swot">SWOT</a></li>
+        <li><a href="#market">Market</a></li>
+        <li><a href="#financial">Financials</a></li>
+        <li><a href="#personas">Personas</a></li>
+        <li><a href="#funding">Funding</a></li>
+        <li><a href="#gtm">Go-to-Market</a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+
+      <!-- Hamburger menu for mobile (toggled by JS) -->
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown menu (hidden by default) -->
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#overview">Overview</a>
+      <a href="#swot">SWOT</a>
+      <a href="#market">Market</a>
+      <a href="#financial">Financials</a>
+      <a href="#personas">Personas</a>
+      <a href="#funding">Funding</a>
+      <a href="#gtm">Go-to-Market</a>
+      <a href="#results">Results</a>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO SECTION
+       Full-viewport splash with animated background shapes,
+       counter stats, and a CTA button. Unchanged from original.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <!-- Blurred gradient orbs for visual depth (CSS-only animation) -->
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container hero-content">
+      <!-- Assignment badge pill -->
+      <div class="hero-badge">CSC150 · Intro to AI · Assignment 4</div>
+
+      <!-- Main headline with two highlighted spans -->
+      <h1 class="hero-title">
+        What took a team <span class="highlight-teal">3 weeks</span><br/>
+        now takes <span class="highlight-purple">6 hours.</span>
+      </h1>
+
+      <!-- Supporting description -->
+      <p class="hero-sub">
+        A full entrepreneurship analysis — market research, SWOT, customer personas,
+        funding strategy, go-to-market plan, and a 36-month financial model —
+        built with AI in a single session.
+      </p>
+
+      <!-- Animated counter stats bar -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <!-- data-target drives the JS counter animation -->
+          <span class="hero-stat-val" data-target="97">0</span><span class="hero-stat-unit">%</span>
+          <span class="hero-stat-lbl">Time reduction</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-val" data-target="976">0</span>
+          <span class="hero-stat-lbl">Live Excel formulas</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-val" data-target="9">0</span>
+          <span class="hero-stat-lbl">Major deliverables</span>
+        </div>
+      </div>
+
+      <!-- Primary CTA — scrolls to overview -->
+      <a href="#overview" class="btn-primary">Explore the full analysis ↓</a>
+    </div>
+
+    <!-- Animated scroll hint at the bottom of hero -->
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       OVERVIEW SECTION
+       Grid of 9 deliverable cards. Each card is now clickable:
+       it navigates to the corresponding detailed section below.
+       data-section attribute tells JS where to scroll.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-label">The Mission</div>
+      <h2 class="section-title">One profession. One session. A complete business plan.</h2>
+      <p class="section-desc">
+        Using Claude (Sonnet 4.6 &amp; Opus 4.6) and Perplexity AI, this project built an end-to-end
+        entrepreneurship analysis for a local-first personal AI system. Click any deliverable below
+        to jump to the full interactive analysis.
+      </p>
+
+      <!-- 3-column grid of clickable deliverable cards -->
+      <div class="deliverables-grid">
+
+        <!-- Card 01: Market Research → #market -->
+        <div class="deliverable-card fade-up clickable-card" data-section="market" tabindex="0" role="button" aria-label="View Market Research">
+          <div class="del-icon del-purple">01</div>
+          <div class="del-body">
+            <h3>Market Research <span class="card-arrow">→</span></h3>
+            <p>Verified market size data from Grand View Research, MarketsandMarkets, Capgemini, and BCC Research across three market segments.</p>
+          </div>
+        </div>
+
+        <!-- Card 02: SWOT Analysis → #swot -->
+        <div class="deliverable-card fade-up clickable-card" data-section="swot" tabindex="0" role="button" aria-label="View SWOT Analysis">
+          <div class="del-icon del-teal">02</div>
+          <div class="del-body">
+            <h3>SWOT Analysis <span class="card-arrow">→</span></h3>
+            <p>Full strengths, weaknesses, opportunities, and threats analysis for a local-first edge AI product entering a cloud-dominated market.</p>
+          </div>
+        </div>
+
+        <!-- Card 03: Customer Personas → #personas -->
+        <div class="deliverable-card fade-up clickable-card" data-section="personas" tabindex="0" role="button" aria-label="View Customer Personas">
+          <div class="del-icon del-coral">03</div>
+          <div class="del-body">
+            <h3>Customer Personas <span class="card-arrow">→</span></h3>
+            <p>Two detailed buyer personas — Marcus and Vanessa — including household purchase dynamics and the strategic "veto-to-champion" insight.</p>
+          </div>
+        </div>
+
+        <!-- Card 04: Funding Strategy → #funding -->
+        <div class="deliverable-card fade-up clickable-card" data-section="funding" tabindex="0" role="button" aria-label="View Funding Strategy">
+          <div class="del-icon del-purple">04</div>
+          <div class="del-body">
+            <h3>Funding Strategy <span class="card-arrow">→</span></h3>
+            <p>Three-stage funding roadmap: Bootstrap → Angel Investors → Venture Capital, with specific platforms, named investors, and equity terms.</p>
+          </div>
+        </div>
+
+        <!-- Card 05: Go-to-Market → #gtm -->
+        <div class="deliverable-card fade-up clickable-card" data-section="gtm" tabindex="0" role="button" aria-label="View Go-to-Market Plan">
+          <div class="del-icon del-teal">05</div>
+          <div class="del-body">
+            <h3>Go-to-Market Plan <span class="card-arrow">→</span></h3>
+            <p>Four-phase launch strategy, hardware + SaaS pricing model, six prioritized marketing channels, and five targeted copy messages.</p>
+          </div>
+        </div>
+
+        <!-- Card 06: Financial Model → #financial -->
+        <div class="deliverable-card fade-up clickable-card" data-section="financial" tabindex="0" role="button" aria-label="View Financial Model">
+          <div class="del-icon del-coral">06</div>
+          <div class="del-body">
+            <h3>Financial Model <span class="card-arrow">→</span></h3>
+            <p>36-month P&amp;L projection with 976 live formulas, annual summary, and fully editable assumptions — exported to Google Sheets.</p>
+          </div>
+        </div>
+
+        <!-- Card 07: Competitive Analysis (bonus insight) -->
+        <div class="deliverable-card fade-up clickable-card" data-section="market" tabindex="0" role="button" aria-label="View Competitive Landscape">
+          <div class="del-icon del-purple">07</div>
+          <div class="del-body">
+            <h3>Competitive Landscape <span class="card-arrow">→</span></h3>
+            <p>Direct vs. indirect competitor mapping across cloud AI assistants, smart home devices, and open-source local AI alternatives.</p>
+          </div>
+        </div>
+
+        <!-- Card 08: Marketing Copy -->
+        <div class="deliverable-card fade-up clickable-card" data-section="gtm" tabindex="0" role="button" aria-label="View Marketing Copy">
+          <div class="del-icon del-teal">08</div>
+          <div class="del-body">
+            <h3>Marketing Copy <span class="card-arrow">→</span></h3>
+            <p>Five high-converting ad and landing page messages, each targeting a specific fear-or-desire combination from the persona research.</p>
+          </div>
+        </div>
+
+        <!-- Card 09: Productivity Results -->
+        <div class="deliverable-card fade-up clickable-card" data-section="results" tabindex="0" role="button" aria-label="View Productivity Results">
+          <div class="del-icon del-coral">09</div>
+          <div class="del-body">
+            <h3>Productivity Results <span class="card-arrow">→</span></h3>
+            <p>Side-by-side benchmark comparing AI-assisted time vs. traditional team time for each deliverable, with a 97% average reduction.</p>
+          </div>
+        </div>
+
+      </div><!-- /deliverables-grid -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SWOT ANALYSIS SECTION  [NEW]
+       Full interactive 2×2 SWOT wallboard.
+       Each quadrant is color-coded:
+         S = Teal (positive internal)
+         W = Coral (negative internal)
+         O = Purple (positive external)
+         T = Amber (negative external)
+       Each item in a quadrant is clickable → shows detail card.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="swot" class="section section-alt">
+    <div class="container">
+      <div class="section-label">SWOT Analysis</div>
+      <h2 class="section-title">Where we win. Where we're exposed.</h2>
+      <p class="section-desc">
+        A strategic SWOT for a local-first personal AI system entering a cloud-dominated market.
+        Click any item to expand its strategic detail and implication.
+      </p>
+
+      <!-- 2×2 SWOT grid container -->
+      <div class="swot-board fade-up">
+
+        <!-- ── STRENGTHS quadrant (top-left, teal) ── -->
+        <div class="swot-quadrant swot-strengths">
+          <!-- Quadrant header with icon and label -->
+          <div class="swot-q-header swot-header-s">
+            <div class="swot-q-icon">S</div>
+            <div>
+              <div class="swot-q-title">Strengths</div>
+              <div class="swot-q-sub">Internal · Positive</div>
+            </div>
+          </div>
+          <!-- List of strength items — each has a data-detail attribute for the expanded view -->
+          <ul class="swot-list">
+            <li class="swot-item" data-detail="Local-first means zero data ever leaves the home network. This is not a marketing claim — it is the architectural foundation. No data breach is possible for data that never travels. This structural privacy moat is impossible to replicate by cloud-first competitors without a complete product rebuild.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">Local-first architecture — zero cloud dependency</span>
+            </li>
+            <li class="swot-item" data-detail="The NVIDIA Jetson Orin Nano Super (purchased) delivers 67 TOPS of AI compute at the edge. This is production-grade hardware that runs quantized LLMs, vision models, and agentic pipelines entirely offline. Most competitors rely on API calls; this product runs independently.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">NVIDIA Jetson Orin Nano Super — 67 TOPS hardware platform</span>
+            </li>
+            <li class="swot-item" data-detail="No established brand owns the 'local-first personal AI' category as of 2025. The founder has a 12–18 month window to plant the flag before big tech responds. First-mover advantage compounds quickly in AI: the founder's name becomes the category name.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">First-mover in local-first personal AI category</span>
+            </li>
+            <li class="swot-item" data-detail="The founder brings 30+ years of managerial and leadership experience plus an MBA. This is not a technical founder who needs a business co-founder. Strategic decisions — pricing, positioning, hiring, funding sequencing — are being made from a place of hard-won operational wisdom.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">30+ years leadership experience + MBA — strategy-first founder</span>
+            </li>
+            <li class="swot-item" data-detail="NVIDIA's Inception Program provides free software tools, cloud credits, and — critically — warm introductions to investors who already understand and want to fund edge AI companies. This shortens the Series A fundraise cycle and provides market validation from a $3T company.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">NVIDIA Inception Program — tools, credibility, investor access</span>
+            </li>
+            <li class="swot-item" data-detail="The product's core value proposition is its architecture. Unlike a feature (which can be copied in a sprint), rewriting a cloud AI product to be local-first requires a ground-up rebuild — 2-3 years minimum for a large company. The moat is structural, not superficial.">
+              <span class="swot-bullet s-bullet">▸</span>
+              <span class="swot-item-text">Privacy-by-design is a structural moat — not a feature</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ── WEAKNESSES quadrant (top-right, coral) ── -->
+        <div class="swot-quadrant swot-weaknesses">
+          <div class="swot-q-header swot-header-w">
+            <div class="swot-q-icon">W</div>
+            <div>
+              <div class="swot-q-title">Weaknesses</div>
+              <div class="swot-q-sub">Internal · Negative</div>
+            </div>
+          </div>
+          <ul class="swot-list">
+            <li class="swot-item" data-detail="The $799 hardware price tag creates a purchase consideration cycle that cloud AI subscriptions don't face. Customers must justify a one-time capital outlay, not just a monthly fee. This requires a different sales motion — one that emphasizes long-term ROI and total cost of ownership vs. cloud.">
+              <span class="swot-bullet w-bullet">▸</span>
+              <span class="swot-item-text">$799 hardware cost — high acquisition barrier vs. cloud</span>
+            </li>
+            <li class="swot-item" data-detail="A single founder managing product, engineering, sales, support, and operations faces an extreme bandwidth constraint. The risk is not incompetence — it is time. Every hour spent on customer support is an hour not spent on the roadmap. Hiring or contracting is the mitigation.">
+              <span class="swot-bullet w-bullet">▸</span>
+              <span class="swot-item-text">Single-founder bandwidth — product + ops + sales simultaneously</span>
+            </li>
+            <li class="swot-item" data-detail="Shipping physical hardware adds supply chain risk, shipping costs, warranty obligations, and support complexity that a pure SaaS product never faces. A batch of defective Jetson units or a shipping partner failure could materially damage early customer trust at the worst possible time.">
+              <span class="swot-bullet w-bullet">▸</span>
+              <span class="swot-item-text">Hardware logistics — supply chain, warranty, returns complexity</span>
+            </li>
+            <li class="swot-item" data-detail="Without a brand name, press coverage, or customer testimonials, early sales rely entirely on the founder's personal network and organic reach. Word-of-mouth is the plan, but it requires satisfied early customers first — a chicken-and-egg dynamic in the first 6 months.">
+              <span class="swot-bullet w-bullet">▸</span>
+              <span class="swot-item-text">Zero brand recognition at launch</span>
+            </li>
+            <li class="swot-item" data-detail="Running LLMs locally requires updates as new, better models emerge. Managing model versioning, hardware compatibility, and user update experiences adds ongoing engineering overhead. Cloud AI products handle this invisibly; local-first products must make it seamless or it becomes a support burden.">
+              <span class="swot-bullet w-bullet">▸</span>
+              <span class="swot-item-text">Local model versioning — ongoing update and compatibility burden</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ── OPPORTUNITIES quadrant (bottom-left, purple) ── -->
+        <div class="swot-quadrant swot-opportunities">
+          <div class="swot-q-header swot-header-o">
+            <div class="swot-q-icon">O</div>
+            <div>
+              <div class="swot-q-title">Opportunities</div>
+              <div class="swot-q-sub">External · Positive</div>
+            </div>
+          </div>
+          <ul class="swot-list">
+            <li class="swot-item" data-detail="73% of consumers do not trust tech companies with their personal data (Pew Research). This is not a niche preference — it is a majority position. The market is not underserved; it is entirely unserved. No current product says 'your data never leaves your home' as its core promise.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">73% consumer distrust — mass market waiting for alternative</span>
+            </li>
+            <li class="swot-item" data-detail="GDPR (EU), CCPA (California), HIPAA (healthcare), and FERPA (education) are all creating environments where local data storage is not just preferred but required. Regulatory tailwinds turn a product feature into a compliance solution — and compliance budgets are much larger than consumer budgets.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">GDPR / CCPA / HIPAA regulatory tailwinds favor local-first</span>
+            </li>
+            <li class="swot-item" data-detail="The Edge AI market grows from $8.7B in 2024 to $57B+ by 2030 at a 17–37% CAGR. The Personal AI Assistant market grows from $2.2B to $56B+ at 38% CAGR. The Agentic AI market grows from $5.1B to $52B+ at 30–46% CAGR. Three converging hypergrowth markets, all with no local-first leader.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">Three converging hypergrowth markets — $165B+ combined by 2030</span>
+            </li>
+            <li class="swot-item" data-detail="Healthcare professionals managing PHI at home are an underserved, high-value segment. Vanessa (persona) represents millions of nurses, doctors, and practice managers who cannot use ChatGPT for work-adjacent tasks. A HIPAA-compliant local AI is a premium product they would pay a prosumer price for.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">Healthcare vertical — HIPAA-compliant AI = premium segment</span>
+            </li>
+            <li class="swot-item" data-detail="OpenAI, Google, Anthropic, and Amazon are all racing each other in the cloud — none of them are investing in local-first. This is not because the opportunity is small. It is because their entire business model is built on data access. Their incentive misalignment is our market opening.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">Big Tech is incentivized NOT to build local-first — gap persists</span>
+            </li>
+            <li class="swot-item" data-detail="AI agentic systems — AI that takes actions on your behalf (booking, research, coding, scheduling) — are the next frontier. A local-first agentic system that can act on personal data without sending it to a cloud is a product category that does not yet exist at scale. Being first here compounds the moat.">
+              <span class="swot-bullet o-bullet">▸</span>
+              <span class="swot-item-text">Agentic AI local deployment — undefined category, early capture</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ── THREATS quadrant (bottom-right, amber) ── -->
+        <div class="swot-quadrant swot-threats">
+          <div class="swot-q-header swot-header-t">
+            <div class="swot-q-icon">T</div>
+            <div>
+              <div class="swot-q-title">Threats</div>
+              <div class="swot-q-sub">External · Negative</div>
+            </div>
+          </div>
+          <ul class="swot-list">
+            <li class="swot-item" data-detail="Apple runs all Siri processing on-device for certain features. Amazon has a Local Voice Processing mode for Alexa. If either company pivots hard to 'privacy-first' as a marketing narrative, they have the brand, distribution, and hardware supply chain to dominate retail instantly. The window is 12–24 months.">
+              <span class="swot-bullet t-bullet">▸</span>
+              <span class="swot-item-text">Big Tech pivot to local-first — Apple, Amazon have the scale</span>
+            </li>
+            <li class="swot-item" data-detail="OpenAI, Google Gemini, and Anthropic have been halving API prices every 12 months. If cloud AI becomes cheap enough that the privacy objection feels irrelevant to the mass market, the total addressable market shrinks. Monitor: if cost-per-query drops below $0.001, re-evaluate positioning.">
+              <span class="swot-bullet t-bullet">▸</span>
+              <span class="swot-item-text">Rapidly falling cloud AI costs — reduces perceived privacy urgency</span>
+            </li>
+            <li class="swot-item" data-detail="Home Assistant (open source, 700K+ installs), Ollama (local LLM runner, 80K+ GitHub stars), and LM Studio (desktop local LLM) are free alternatives. They require technical setup, which is a barrier — but technically sophisticated early adopters are the initial target audience. They may DIY instead of buy.">
+              <span class="swot-bullet t-bullet">▸</span>
+              <span class="swot-item-text">Open-source alternatives — Home Assistant, Ollama, LM Studio</span>
+            </li>
+            <li class="swot-item" data-detail="NVIDIA Jetson units face periodic supply shortages tied to TSMC fab capacity. A 3-month supply chain disruption during the launch phase could mean losing early adopters who won't wait. Mitigation: pre-order buffer stock; build 60-day inventory before launch.">
+              <span class="swot-bullet t-bullet">▸</span>
+              <span class="swot-item-text">Hardware supply chain — NVIDIA Jetson availability risk</span>
+            </li>
+            <li class="swot-item" data-detail="If a well-funded startup raises $20M to build a polished, consumer-grade local-first AI with a professional UX and national marketing budget, they could leapfrog the bootstrap phase entirely. The risk is not having a competitor — it is having a well-capitalized one who moves fast.">
+              <span class="swot-bullet t-bullet">▸</span>
+              <span class="swot-item-text">Funded startup competitor entering local-first space</span>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /swot-board -->
+
+      <!-- SWOT Strategic Summary callout -->
+      <div class="swot-summary fade-up">
+        <div class="swot-summary-inner">
+          <div class="ss-item ss-win">
+            <div class="ss-label">Strategic Win</div>
+            <div class="ss-text">Structural privacy moat + regulatory tailwinds + 73% market dissatisfaction = a category that creates itself</div>
+          </div>
+          <div class="ss-divider"></div>
+          <div class="ss-item ss-risk">
+            <div class="ss-label">Biggest Risk</div>
+            <div class="ss-text">Big Tech privacy pivot — the 12–18 month window before Apple or Amazon claims "local-first" at scale</div>
+          </div>
+          <div class="ss-divider"></div>
+          <div class="ss-item ss-action">
+            <div class="ss-label">Strategic Response</div>
+            <div class="ss-text">Move fast, build community loyalty, capture healthcare vertical — make switching cost prohibitive before window closes</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       MARKET ANALYSIS SECTION
+       Original 3-card market data + NEW interactive bar chart
+       showing market size and growth trajectory side by side.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="market" class="section">
+    <div class="container">
+      <div class="section-label">Market Analysis</div>
+      <h2 class="section-title">A market being built in real time.</h2>
+      <p class="section-desc">
+        Three converging markets underpin this opportunity — each growing at double-digit CAGR,
+        each with no dominant local-first competitor. All figures sourced from verified market research firms.
+      </p>
+
+      <!-- ── Market summary cards (existing) ── -->
+      <div class="market-cards">
+        <div class="market-card fade-up">
+          <div class="market-tag tag-purple">Edge AI</div>
+          <div class="market-size">$8.7B → $57B+</div>
+          <div class="market-period">2024 → 2030</div>
+          <div class="market-cagr">CAGR 17–37%</div>
+          <p class="market-note">Hardware segment dominant. NVIDIA Jetson ecosystem central.</p>
+          <div class="market-source">Source: BCC Research, Grand View Research</div>
+        </div>
+        <div class="market-card fade-up">
+          <div class="market-tag tag-teal">Personal AI Assistant</div>
+          <div class="market-size">$2.2B → $56B+</div>
+          <div class="market-period">2024 → 2034</div>
+          <div class="market-cagr">CAGR 38%</div>
+          <p class="market-note">Cloud-first dominance creates privacy gap. Local-first is unoccupied.</p>
+          <div class="market-source">Source: Market.us, Research &amp; Markets</div>
+        </div>
+        <div class="market-card market-card-featured fade-up">
+          <div class="market-tag tag-coral">Agentic AI</div>
+          <div class="market-size">$5.1B → $52B+</div>
+          <div class="market-period">2024 → 2030</div>
+          <div class="market-cagr">CAGR 30–46%</div>
+          <p class="market-note">Fastest growing segment. Multi-agent systems lead. Local deployment emerging.</p>
+          <div class="market-source">Source: Capgemini, MarketsandMarkets</div>
+        </div>
+      </div>
+
+      <!-- ── Interactive Market Chart ── -->
+      <div class="chart-container fade-up">
+        <div class="chart-header">
+          <h3 class="chart-title">Market Size: 2024 vs 2030 Projections (USD Billions)</h3>
+          <p class="chart-sub">Click any bar to view source and detailed notes</p>
+        </div>
+        <!-- Canvas element — Chart.js draws into this -->
+        <canvas id="marketChart" height="320"></canvas>
+      </div>
+
+      <!-- ── Competitive Landscape Table ── -->
+      <div class="section-sublabel fade-up">Competitive Landscape</div>
+      <div class="competitive-table fade-up">
+        <div class="comp-tbl-header">
+          <div>Competitor</div>
+          <div>Type</div>
+          <div>Privacy Approach</div>
+          <div>Local-First?</div>
+          <div>Threat Level</div>
+        </div>
+        <!-- Each row is a competitor entry -->
+        <div class="comp-tbl-row">
+          <div class="comp-name">ChatGPT / OpenAI</div>
+          <div>Cloud SaaS</div>
+          <div>Data used for training (opt-out available)</div>
+          <div><span class="badge badge-no">✗ No</span></div>
+          <div><span class="threat-pill threat-high">High</span></div>
+        </div>
+        <div class="comp-tbl-row comp-tbl-alt">
+          <div class="comp-name">Google Gemini</div>
+          <div>Cloud SaaS</div>
+          <div>Integrated with Google account data</div>
+          <div><span class="badge badge-no">✗ No</span></div>
+          <div><span class="threat-pill threat-high">High</span></div>
+        </div>
+        <div class="comp-tbl-row">
+          <div class="comp-name">Amazon Alexa</div>
+          <div>Smart Home Device</div>
+          <div>Local processing for wake word only</div>
+          <div><span class="badge badge-partial">~ Partial</span></div>
+          <div><span class="threat-pill threat-high">High</span></div>
+        </div>
+        <div class="comp-tbl-row comp-tbl-alt">
+          <div class="comp-name">Apple Siri</div>
+          <div>Mobile / Device AI</div>
+          <div>On-device for some queries, cloud for others</div>
+          <div><span class="badge badge-partial">~ Partial</span></div>
+          <div><span class="threat-pill threat-med">Medium</span></div>
+        </div>
+        <div class="comp-tbl-row">
+          <div class="comp-name">Home Assistant</div>
+          <div>Open Source Smart Home</div>
+          <div>Fully local — no cloud required</div>
+          <div><span class="badge badge-yes">✓ Yes</span></div>
+          <div><span class="threat-pill threat-med">Medium</span></div>
+        </div>
+        <div class="comp-tbl-row comp-tbl-alt">
+          <div class="comp-name">Ollama / LM Studio</div>
+          <div>Open Source LLM Runner</div>
+          <div>Fully local — dev-oriented, no GUI</div>
+          <div><span class="badge badge-yes">✓ Yes</span></div>
+          <div><span class="threat-pill threat-low">Low — technical users only</span></div>
+        </div>
+        <div class="comp-tbl-row comp-gap">
+          <div class="comp-name comp-gap-label">★ This Product</div>
+          <div>Local-First Personal AI</div>
+          <div>100% local — zero cloud — privacy-by-architecture</div>
+          <div><span class="badge badge-yes">✓ Fully</span></div>
+          <div><span class="threat-pill threat-opp">No competitor owns this space</span></div>
+        </div>
+      </div>
+
+      <!-- Privacy trust banner (existing) -->
+      <div class="privacy-banner fade-up">
+        <div class="privacy-stat">
+          <span class="p-num">73%</span>
+          <span class="p-lbl">of consumers do not trust tech providers with their data</span>
+        </div>
+        <div class="privacy-divider"></div>
+        <div class="privacy-copy">
+          <strong>This is not a niche market.</strong> It is a majority of the population waiting for a trustworthy alternative. Local-first architecture is the answer they have been waiting for.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FINANCIAL MODEL SECTION  [NEW]
+       36-month P&L projection visualized as an interactive line chart.
+       Three lines: Revenue, Operating Costs, and Net Profit/Loss.
+       Phase bands show Bootstrap, Angel, and VC periods.
+       Key metric summary cards above the chart.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="financial" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Financial Model</div>
+      <h2 class="section-title">36 months. 976 formulas. One clear trajectory.</h2>
+      <p class="section-desc">
+        A bottom-up financial model built from first principles: unit economics, subscriber growth
+        assumptions, hardware margins, and operational cost scaling. Hardware creates the entry point —
+        software subscriptions create the lifetime value.
+      </p>
+
+      <!-- ── Annual Summary KPI Cards ── -->
+      <div class="fin-kpi-row fade-up">
+        <!-- Year 1: Bootstrap phase, investment period -->
+        <div class="fin-kpi-card fin-kpi-yr1">
+          <div class="fin-kpi-year">Year 1</div>
+          <div class="fin-kpi-revenue">$18,990</div>
+          <div class="fin-kpi-label">Total Revenue</div>
+          <div class="fin-kpi-users">~35 avg users</div>
+          <div class="fin-kpi-status fin-status-inv">Investment Phase</div>
+        </div>
+        <!-- Year 2: Angel funding deployed, scaling -->
+        <div class="fin-kpi-card fin-kpi-yr2">
+          <div class="fin-kpi-year">Year 2</div>
+          <div class="fin-kpi-revenue">$187,440</div>
+          <div class="fin-kpi-label">Total Revenue</div>
+          <div class="fin-kpi-users">~265 avg users</div>
+          <div class="fin-kpi-status fin-status-growth">Growth Phase</div>
+        </div>
+        <!-- Year 3: VC capital, scaling aggressively -->
+        <div class="fin-kpi-card fin-kpi-yr3">
+          <div class="fin-kpi-year">Year 3</div>
+          <div class="fin-kpi-revenue">$1,142,280</div>
+          <div class="fin-kpi-label">Total Revenue</div>
+          <div class="fin-kpi-users">~1,610 avg users</div>
+          <div class="fin-kpi-status fin-status-scale">Scale Phase</div>
+        </div>
+        <!-- Hardware margin card -->
+        <div class="fin-kpi-card fin-kpi-hw">
+          <div class="fin-kpi-year">Hardware</div>
+          <div class="fin-kpi-revenue">$799</div>
+          <div class="fin-kpi-label">Unit Price</div>
+          <div class="fin-kpi-users">~40% gross margin</div>
+          <div class="fin-kpi-status fin-status-moat">Moat Builder</div>
+        </div>
+      </div>
+
+      <!-- ── 36-Month Chart ── -->
+      <div class="chart-container fade-up">
+        <div class="chart-header">
+          <h3 class="chart-title">36-Month Revenue / Cost / Net Profit (Monthly USD)</h3>
+          <p class="chart-sub">Hover over any point for exact monthly figures</p>
+        </div>
+        <!-- Phase legend above chart -->
+        <div class="fin-phase-legend">
+          <span class="fpl-item fpl-bootstrap">● Bootstrap (Mo 1–18)</span>
+          <span class="fpl-item fpl-angel">● Angel Capital (Mo 18–30)</span>
+          <span class="fpl-item fpl-vc">● VC Scale (Mo 30–36)</span>
+        </div>
+        <!-- Chart.js draws into this canvas -->
+        <canvas id="financialChart" height="380"></canvas>
+      </div>
+
+      <!-- ── Key Assumptions Table ── -->
+      <div class="assumptions-table fade-up">
+        <h3 class="assumptions-title">Model Assumptions</h3>
+        <div class="assump-grid">
+          <div class="assump-row">
+            <span class="assump-key">Hardware unit price</span>
+            <span class="assump-val">$799 (one-time)</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Hardware gross margin</span>
+            <span class="assump-val">~40% ($320 per unit)</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Blended ARPU (monthly)</span>
+            <span class="assump-val">$59–$99 by phase</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Beta period (Mo 1–6)</span>
+            <span class="assump-val">0 revenue · 20 beta testers</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Early adopter phase (Mo 7–12)</span>
+            <span class="assump-val">$99/mo early price · 8 new users/mo</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Public launch (Mo 13–18)</span>
+            <span class="assump-val">Standard pricing · 20 new users/mo</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Angel scale (Mo 19–30)</span>
+            <span class="assump-val">Capital deployed · 60 new users/mo</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">VC scale (Mo 31–36)</span>
+            <span class="assump-val">Series A deployed · 150 new users/mo</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Monthly churn rate</span>
+            <span class="assump-val">3% (hardware moat reduces churn)</span>
+          </div>
+          <div class="assump-row">
+            <span class="assump-key">Breakeven month</span>
+            <span class="assump-val">Month 10 (early adopter revenue)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PERSONAS SECTION
+       Two persona cards. Clicking either card opens the full
+       persona modal overlay with the complete buyer profile.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="personas" class="section">
+    <div class="container">
+      <div class="section-label">Customer Personas</div>
+      <h2 class="section-title">Two buyers. One household. One decision.</h2>
+      <p class="section-desc">
+        The strategic insight that separates this analysis from surface-level research —
+        the household purchase dynamic, and how it creates a two-person sales motion.
+        Click either persona card to see the full profile.
+      </p>
+
+      <!-- ── Persona cards grid ── -->
+      <div class="personas-grid">
+
+        <!-- Marcus card — opens marcus modal on click -->
+        <div class="persona-card fade-up clickable-persona" id="marcus-card" tabindex="0" role="button" aria-label="View Marcus full persona">
+          <div class="persona-avatar pa-blue">M</div>
+          <div class="persona-info">
+            <h3 class="persona-name">Marcus <span class="persona-click-hint">View full profile →</span></h3>
+            <div class="persona-role">The Privacy-First Professional</div>
+            <div class="persona-detail">42 · Senior Operations Director · $175K+ household income</div>
+          </div>
+          <div class="persona-tags">
+            <span class="ptag">Privacy conscious</span>
+            <span class="ptag">Tech-forward</span>
+            <span class="ptag">Early adopter</span>
+          </div>
+          <blockquote class="persona-quote">
+            "I use ChatGPT every day — but I don't trust where my data goes. If I could have that power locally, I'd switch tomorrow."
+          </blockquote>
+          <div class="persona-role-label">His role: <strong>Discovers the product</strong></div>
+        </div>
+
+        <!-- Arrow between personas (desktop only) -->
+        <div class="persona-arrow">
+          <div class="arrow-line"></div>
+          <div class="arrow-label">Household<br/>decision</div>
+        </div>
+
+        <!-- Vanessa card — opens vanessa modal on click -->
+        <div class="persona-card fade-up clickable-persona" id="vanessa-card" tabindex="0" role="button" aria-label="View Vanessa full persona">
+          <div class="persona-avatar pa-pink">V</div>
+          <div class="persona-info">
+            <h3 class="persona-name">Vanessa <span class="persona-click-hint">View full profile →</span></h3>
+            <div class="persona-role">The Household Decision Maker</div>
+            <div class="persona-detail">38 · Healthcare Practice Manager · HIPAA data daily</div>
+          </div>
+          <div class="persona-tags">
+            <span class="ptag">Safety conscious</span>
+            <span class="ptag">Purchase gatekeeper</span>
+            <span class="ptag">Family protector</span>
+          </div>
+          <blockquote class="persona-quote">
+            "I manage protected health data at work all day. Then I come home and my smart speaker is listening to everything."
+          </blockquote>
+          <div class="persona-role-label">Her role: <strong>Approves — then champions</strong></div>
+        </div>
+
+      </div><!-- /personas-grid -->
+
+      <!-- Strategic insight callout (existing) -->
+      <div class="insight-callout fade-up">
+        <div class="ic-icon">&#9670;</div>
+        <div class="ic-text">
+          <strong>The strategic insight:</strong> Vanessa's privacy fears are stronger than Marcus's — making her the natural champion once she understands the local-first architecture.
+          Her biggest objection becomes the product's biggest feature. This is the veto-to-champion dynamic that doubles word-of-mouth without doubling marketing spend.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FUNDING SECTION
+       Three-stage funding roadmap with an equity dilution tracker.
+       Each stage card is tiltable on hover (handled by JS).
+  ════════════════════════════════════════════════════════════ -->
+  <section id="funding" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Funding Strategy</div>
+      <h2 class="section-title">Bootstrap. Angel. VC. In that order.</h2>
+      <p class="section-desc">
+        Three-stage funding roadmap designed to preserve equity in the early stages,
+        build investor credibility through personal commitment, and scale with institutional
+        capital only after proof of concept is established.
+      </p>
+
+      <!-- ── Equity retention visual tracker ── -->
+      <div class="equity-tracker fade-up">
+        <div class="eq-title">Founder Equity Through Funding Stages</div>
+        <div class="eq-stages">
+          <!-- Stage 0: Before any funding -->
+          <div class="eq-stage">
+            <div class="eq-bar-wrap">
+              <div class="eq-bar eq-bar-full" style="height: 180px;">
+                <span class="eq-pct">100%</span>
+              </div>
+            </div>
+            <div class="eq-stage-label">Pre-Funding<br/><small>Month 0</small></div>
+          </div>
+          <!-- Connector arrow -->
+          <div class="eq-connector">→</div>
+          <!-- Stage 1: After bootstrap — still 100% -->
+          <div class="eq-stage">
+            <div class="eq-bar-wrap">
+              <div class="eq-bar eq-bar-full" style="height: 180px;">
+                <span class="eq-pct">100%</span>
+              </div>
+            </div>
+            <div class="eq-stage-label">Bootstrap<br/><small>Month 18</small></div>
+          </div>
+          <!-- Connector arrow -->
+          <div class="eq-connector">→</div>
+          <!-- Stage 2: After angel round (5–15% given away → keep 85–95%, show 88% midpoint) -->
+          <div class="eq-stage">
+            <div class="eq-bar-wrap">
+              <div class="eq-bar eq-bar-full" style="height: 158px;">
+                <span class="eq-pct">88%</span>
+              </div>
+              <div class="eq-bar eq-bar-given" style="height: 22px;">
+                <span class="eq-pct eq-pct-small">12%</span>
+              </div>
+            </div>
+            <div class="eq-stage-label">Angel Round<br/><small>$150K avg</small></div>
+          </div>
+          <!-- Connector arrow -->
+          <div class="eq-connector">→</div>
+          <!-- Stage 3: After VC round (20–30% → keep 70–80%, show 73%) -->
+          <div class="eq-stage">
+            <div class="eq-bar-wrap">
+              <div class="eq-bar eq-bar-full" style="height: 131px;">
+                <span class="eq-pct">73%</span>
+              </div>
+              <div class="eq-bar eq-bar-given" style="height: 49px;">
+                <span class="eq-pct eq-pct-small">27%</span>
+              </div>
+            </div>
+            <div class="eq-stage-label">VC Round<br/><small>$5M avg</small></div>
+          </div>
+        </div>
+        <div class="eq-legend">
+          <span class="eq-legend-item eq-legend-keep">■ Founder equity retained</span>
+          <span class="eq-legend-item eq-legend-give">■ Equity diluted to investors</span>
+        </div>
+      </div>
+
+      <!-- ── Three stage cards (existing design, unchanged) ── -->
+      <div class="funding-timeline">
+
+        <!-- Stage 1: Bootstrap -->
+        <div class="funding-stage fade-up">
+          <div class="fs-header fs-green">
+            <div class="fs-num">Stage 1</div>
+            <div class="fs-title">Bootstrapping</div>
+            <div class="fs-timeline">Months 1–18</div>
+          </div>
+          <div class="fs-body">
+            <div class="fs-amount">$1,000<span>/mo personal</span></div>
+            <div class="fs-total">$18,000 total runway</div>
+            <ul class="fs-list">
+              <li>100% equity retained</li>
+              <li>NVIDIA Jetson Orin Nano Super — hardware platform deployed</li>
+              <li>LLC formation + provisional patent in Month 1</li>
+              <li>NVIDIA Inception Program — free tools + investor intros</li>
+              <li>Goal: working prototype + 20 beta customers</li>
+            </ul>
+            <div class="fs-signal">Skin in the game signal to future investors</div>
+          </div>
+        </div>
+
+        <div class="funding-connector">
+          <div class="fc-line"></div>
+          <div class="fc-label">After prototype + early revenue</div>
+        </div>
+
+        <!-- Stage 2: Angel -->
+        <div class="funding-stage fade-up">
+          <div class="fs-header fs-purple">
+            <div class="fs-num">Stage 2</div>
+            <div class="fs-title">Angel Investors</div>
+            <div class="fs-timeline">Month 18 target</div>
+          </div>
+          <div class="fs-body">
+            <div class="fs-amount">$50K–$250K</div>
+            <div class="fs-total">5–15% equity</div>
+            <ul class="fs-list">
+              <li>AngelList + WeFunder platform listings</li>
+              <li>Andrew Ng's AI Fund — direct application portal</li>
+              <li>NVIDIA Inception warm introductions</li>
+              <li>Jason Calacanis LAUNCH accelerator application</li>
+              <li>Goal: hire first engineer, double marketing spend</li>
+            </ul>
+            <div class="fs-signal">Patient capital + strategic network access</div>
+          </div>
+        </div>
+
+        <div class="funding-connector">
+          <div class="fc-line"></div>
+          <div class="fc-label">After $50K–$100K MRR</div>
+        </div>
+
+        <!-- Stage 3: VC -->
+        <div class="funding-stage fade-up">
+          <div class="fs-header fs-coral">
+            <div class="fs-num">Stage 3</div>
+            <div class="fs-title">Venture Capital</div>
+            <div class="fs-timeline">Month 30 target</div>
+          </div>
+          <div class="fs-body">
+            <div class="fs-amount">$3M–$10M</div>
+            <div class="fs-total">20–30% equity + board seat</div>
+            <ul class="fs-list">
+              <li>Andreessen Horowitz (a16z) — AI thesis alignment</li>
+              <li>Kleiner Perkins — $3.5B fresh AI fund, 2025</li>
+              <li>Sequoia Arc program — early-stage entry point</li>
+              <li>Radical Ventures — AI-exclusive, deep tech focus</li>
+              <li>Goal: national marketing, team of 10+, enterprise vertical</li>
+            </ul>
+            <div class="fs-signal">AI captured 65.6% of all US VC funding in 2025</div>
+          </div>
+        </div>
+
+      </div><!-- /funding-timeline -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       GO-TO-MARKET SECTION
+       Original content + enhanced interactive launch timeline
+       and expanded marketing copy showcase.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="gtm" class="section">
+    <div class="container">
+      <div class="section-label">Go-to-Market</div>
+      <h2 class="section-title">For the other 73%.</h2>
+      <p class="section-desc">
+        Only 27% of consumers trust tech providers with their data.
+        That means 73% are waiting for something better.
+      </p>
+
+      <!-- ── Hero copy showcase ── -->
+      <div class="copy-showcase fade-up">
+        <div class="copy-main">"Your AI. Your home. Your data. Finally."</div>
+        <div class="copy-vs">"Alexa listens. ChatGPT remembers. Google watches. <strong>We don't.</strong>"</div>
+      </div>
+
+      <!-- ── Five marketing copy variants ── -->
+      <div class="copy-variants fade-up">
+        <h3 class="copy-variants-title">Marketing Copy — 5 Message Variants</h3>
+        <div class="copy-variant-grid">
+          <!-- Each variant targets a different fear/desire -->
+          <div class="copy-variant cv-fear">
+            <div class="cv-tag">Fear-Based</div>
+            <div class="cv-headline">"ChatGPT is reading your diary. Ours can't."</div>
+            <div class="cv-target">Target: Privacy-conscious professionals (Marcus)</div>
+          </div>
+          <div class="copy-variant cv-authority">
+            <div class="cv-tag">Authority / Compliance</div>
+            <div class="cv-headline">"HIPAA on the cloud is a contradiction. We solve it."</div>
+            <div class="cv-target">Target: Healthcare workers managing PHI (Vanessa)</div>
+          </div>
+          <div class="copy-variant cv-family">
+            <div class="cv-tag">Family Safety</div>
+            <div class="cv-headline">"Your kids talk to Alexa. Now you control what she knows."</div>
+            <div class="cv-target">Target: Parents with connected home devices</div>
+          </div>
+          <div class="copy-variant cv-value">
+            <div class="cv-tag">Value / ROI</div>
+            <div class="cv-headline">"One box. No subscription to a cloud that owns your data."</div>
+            <div class="cv-target">Target: Cost-aware early adopters tired of recurring fees</div>
+          </div>
+          <div class="copy-variant cv-identity">
+            <div class="cv-tag">Identity / Status</div>
+            <div class="cv-headline">"The AI for people who actually read the terms of service."</div>
+            <div class="cv-target">Target: Technical early adopters and privacy advocates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Pricing + Phases + Channels grid ── -->
+      <div class="gtm-grid fade-up">
+
+        <!-- Pricing column -->
+        <div class="gtm-col">
+          <h3 class="gtm-col-title">Pricing model</h3>
+          <div class="price-row">
+            <span class="price-plan">Hardware unit</span>
+            <span class="price-val">$799 one-time</span>
+          </div>
+          <div class="price-row">
+            <span class="price-plan">Personal plan</span>
+            <span class="price-val">$29 / month</span>
+          </div>
+          <div class="price-row price-featured">
+            <span class="price-plan">Family plan</span>
+            <span class="price-val">$59 / month</span>
+          </div>
+          <div class="price-row">
+            <span class="price-plan">Prosumer plan</span>
+            <span class="price-val">$99 / month</span>
+          </div>
+          <div class="price-note">Hardware creates the moat. Software pays forever.</div>
+        </div>
+
+        <!-- Launch phases column -->
+        <div class="gtm-col">
+          <h3 class="gtm-col-title">Launch phases</h3>
+          <div class="launch-phase lp-green">
+            <span class="lp-mo">Mo 1–6</span>
+            <span class="lp-label">Closed beta · 20 testers · free</span>
+          </div>
+          <div class="launch-phase lp-blue">
+            <span class="lp-mo">Mo 7–12</span>
+            <span class="lp-label">Early adopters — $99/mo</span>
+          </div>
+          <div class="launch-phase lp-purple">
+            <span class="lp-mo">Mo 13–18</span>
+            <span class="lp-label">Public launch — Product Hunt</span>
+          </div>
+          <div class="launch-phase lp-coral">
+            <span class="lp-mo">Mo 18+</span>
+            <span class="lp-label">Scale — angel capital deployed</span>
+          </div>
+        </div>
+
+        <!-- Channels column -->
+        <div class="gtm-col">
+          <h3 class="gtm-col-title">Top channels</h3>
+          <div class="channel-item">
+            <span class="ch-rank rank-high">1</span>
+            <span class="ch-name">Privacy communities — Reddit r/privacy, r/selfhosted</span>
+          </div>
+          <div class="channel-item">
+            <span class="ch-rank rank-high">2</span>
+            <span class="ch-name">Product Hunt launch — Day 1 burst</span>
+          </div>
+          <div class="channel-item">
+            <span class="ch-rank rank-high">3</span>
+            <span class="ch-name">Tech press — Ars Technica, Wired, The Verge</span>
+          </div>
+          <div class="channel-item">
+            <span class="ch-rank rank-med">4</span>
+            <span class="ch-name">YouTube — build in public, demo videos</span>
+          </div>
+          <div class="channel-item">
+            <span class="ch-rank rank-med">5</span>
+            <span class="ch-name">LinkedIn — founder thought leadership</span>
+          </div>
+          <div class="channel-item">
+            <span class="ch-rank rank-med">6</span>
+            <span class="ch-name">Healthcare forums — HIPAA compliance community</span>
+          </div>
+        </div>
+
+      </div><!-- /gtm-grid -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       RESULTS / EVALUATION SECTION
+       Side-by-side time comparison table.
+       Verdict quote card at the bottom.
+  ════════════════════════════════════════════════════════════ -->
+  <section id="results" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Hyper-Productivity Results</div>
+      <h2 class="section-title">The measurement that matters.</h2>
+      <p class="section-desc">
+        With 30+ years in managerial and leadership roles and an MBA, this analysis
+        was benchmarked against real professional experience — not theory.
+      </p>
+
+      <!-- Comparison table (existing) -->
+      <div class="comparison-table fade-up">
+        <div class="comp-header">
+          <div class="comp-cell comp-label-cell">Deliverable</div>
+          <div class="comp-cell comp-trad">Traditional team</div>
+          <div class="comp-cell comp-ai">With AI</div>
+          <div class="comp-cell comp-speed">Speed</div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-cell comp-label">Market research + verification</div>
+          <div class="comp-cell comp-trad-val">5–8 days</div>
+          <div class="comp-cell comp-ai-val">~65 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row comp-alt">
+          <div class="comp-cell comp-label">SWOT analysis</div>
+          <div class="comp-cell comp-trad-val">1–2 days</div>
+          <div class="comp-cell comp-ai-val">~10 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-cell comp-label">Customer personas (×2)</div>
+          <div class="comp-cell comp-trad-val">2–3 days</div>
+          <div class="comp-cell comp-ai-val">~30 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row comp-alt">
+          <div class="comp-cell comp-label">Funding strategy — all 3 stages</div>
+          <div class="comp-cell comp-trad-val">1–2 weeks</div>
+          <div class="comp-cell comp-ai-val">~90 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-cell comp-label">Go-to-market + marketing copy</div>
+          <div class="comp-cell comp-trad-val">5–8 days</div>
+          <div class="comp-cell comp-ai-val">~60 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row comp-alt">
+          <div class="comp-cell comp-label">36-month financial model</div>
+          <div class="comp-cell comp-trad-val">1–2 weeks</div>
+          <div class="comp-cell comp-ai-val">~45 min</div>
+          <div class="comp-cell"><span class="speed-pill sp-green">Much faster</span></div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-cell comp-label">Data accuracy validation</div>
+          <div class="comp-cell comp-trad-val">Reliable — sourced</div>
+          <div class="comp-cell comp-ai-val">Required human review</div>
+          <div class="comp-cell"><span class="speed-pill sp-amber">Needed iteration</span></div>
+        </div>
+        <div class="comp-row comp-alt">
+          <div class="comp-cell comp-label">Strategic judgment calls</div>
+          <div class="comp-cell comp-trad-val">Human expertise: fast</div>
+          <div class="comp-cell comp-ai-val">AI assists, human decides</div>
+          <div class="comp-cell"><span class="speed-pill sp-amber">AI assists, not replaces</span></div>
+        </div>
+      </div>
+
+      <!-- Verdict quote card -->
+      <div class="verdict-card fade-up">
+        <div class="verdict-quote">
+          "AI did not replace professional judgment. It replaced the time required to apply it."
+        </div>
+        <div class="verdict-body">
+          Every strategic decision in this project — the local-first positioning, the household veto insight,
+          the bootstrap-to-angel-to-VC sequencing — came from 30 years of leadership experience.
+          What AI replaced was the weeks of research, writing, formatting, and iteration required
+          to translate that judgment into deliverables. That is the real definition of hyper-productivity.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">AI Hyper-Productivity</div>
+      <div class="footer-meta">
+        <p>CSC150 · Introduction to Artificial Intelligence</p>
+        <p>Assignment 4 — Hyper-productivity Solutions Using Artificial Intelligence</p>
+        <p>Profession: Entrepreneurship · Tools: Claude Sonnet 4.6, Claude Opus 4.6, Perplexity AI</p>
+      </div>
+      <div class="footer-tools">
+        <span class="tool-badge">Claude Sonnet 4.6</span>
+        <span class="tool-badge">Claude Opus 4.6</span>
+        <span class="tool-badge">Perplexity AI</span>
+        <span class="tool-badge">Google Sheets</span>
+        <span class="tool-badge">NVIDIA Jetson</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════════
+       MODAL OVERLAY — MARCUS PERSONA
+       Full-screen modal with Marcus's complete buyer profile.
+       Opened by clicking the Marcus persona card.
+       Closed by clicking the X button or the backdrop.
+  ════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-marcus" role="dialog" aria-modal="true" aria-label="Marcus Persona Profile">
+    <div class="modal-box modal-marcus-theme">
+
+      <!-- Modal close button -->
+      <button class="modal-close" data-modal="modal-marcus" aria-label="Close persona">✕</button>
+
+      <!-- ── Persona Header ── -->
+      <div class="modal-persona-header mph-blue">
+        <div class="modal-avatar mav-blue">M</div>
+        <div class="modal-persona-meta">
+          <div class="modal-persona-name">Marcus</div>
+          <div class="modal-persona-role">The Privacy-First Professional</div>
+          <div class="modal-persona-tagline">"Discovers the product. Makes the case to Vanessa."</div>
+        </div>
+        <!-- Quick stats row -->
+        <div class="modal-stats-row">
+          <div class="modal-stat"><span class="ms-val">42</span><span class="ms-lbl">Age</span></div>
+          <div class="modal-stat"><span class="ms-val">$175K+</span><span class="ms-lbl">HHI</span></div>
+          <div class="modal-stat"><span class="ms-val">Austin TX</span><span class="ms-lbl">Location</span></div>
+          <div class="modal-stat"><span class="ms-val">MBA</span><span class="ms-lbl">Education</span></div>
+        </div>
+      </div>
+
+      <!-- ── Modal Body ── -->
+      <div class="modal-body">
+
+        <!-- Job and context -->
+        <div class="modal-section">
+          <h4 class="modal-section-title">Role & Context</h4>
+          <p>Senior Operations Director at a mid-size logistics company. Manages a team of 14 and is responsible for data governance and vendor contracts. Already uses ChatGPT daily for operational analysis — but deactivated Alexa three years ago when he read the privacy policy.</p>
+        </div>
+
+        <!-- Goals -->
+        <div class="modal-two-col">
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-teal">Goals</h4>
+            <ul class="modal-list">
+              <li>Use AI to stay 2–3x more productive than peers without sacrificing data privacy</li>
+              <li>Automate personal and household task management with a single intelligent assistant</li>
+              <li>Find a product he can use for both work-adjacent and personal tasks without legal risk</li>
+              <li>Be an early adopter — bragging rights matter to him</li>
+            </ul>
+          </div>
+
+          <!-- Pain points -->
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-coral">Pain Points</h4>
+            <ul class="modal-list">
+              <li>ChatGPT's data training opt-out is buried and unreliable — he doesn't trust it</li>
+              <li>His company's IT policy blocks cloud AI tools at work — he can't use it where he needs it most</li>
+              <li>Every smart home device he researches has a cloud-only backend</li>
+              <li>Feels the gap between "what AI could do" and "what I can safely use it for" every single day</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Day in the life -->
+        <div class="modal-section">
+          <h4 class="modal-section-title">Day in the Life</h4>
+          <div class="day-timeline">
+            <div class="day-item">
+              <div class="day-time">6:30 AM</div>
+              <div class="day-event">Reads AI/tech news over coffee. Spots a mention of local AI — bookmarks it for later.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">9:00 AM</div>
+              <div class="day-event">Needs to analyze a vendor contract. Opens ChatGPT, then closes it — the data is sensitive.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">12:30 PM</div>
+              <div class="day-event">Researches the bookmarked local AI product on his lunch break. Gets excited.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">6:00 PM</div>
+              <div class="day-event">Shows Vanessa the product over dinner. She immediately asks: "But does it listen to us all the time?"</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">9:00 PM</div>
+              <div class="day-event">Researches answers to Vanessa's objections. Discovers the local-first architecture answer.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purchase behavior -->
+        <div class="modal-two-col">
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-purple">Purchase Behavior</h4>
+            <ul class="modal-list">
+              <li><strong>Decision trigger:</strong> Product Hunt, Hacker News, or Ars Technica coverage</li>
+              <li><strong>Research process:</strong> Deep-dives for 1–2 weeks before buying</li>
+              <li><strong>Price sensitivity:</strong> Low for the right product — willing to pay $799 + $99/mo</li>
+              <li><strong>Final gate:</strong> Vanessa must approve any purchase over $500</li>
+            </ul>
+          </div>
+
+          <!-- Devices & tech stack -->
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-teal">Tech Stack</h4>
+            <ul class="modal-list">
+              <li>MacBook Pro (work) + Windows desktop (home)</li>
+              <li>iPhone + iPad</li>
+              <li>Smart TV (no mic enabled)</li>
+              <li>ChatGPT Plus subscriber — but uncomfortable</li>
+              <li>Has used GitHub, Docker, basic CLI tools</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Key marketing message for Marcus -->
+        <div class="modal-message-callout mmc-blue">
+          <div class="mmc-label">The message that converts Marcus</div>
+          <div class="mmc-quote">"ChatGPT is reading your contracts. Ours runs on your desk and talks to no one."</div>
+        </div>
+
+      </div><!-- /modal-body -->
+    </div><!-- /modal-box -->
+  </div><!-- /modal-marcus -->
+
+  <!-- ════════════════════════════════════════════════════════════
+       MODAL OVERLAY — VANESSA PERSONA
+       Full-screen modal with Vanessa's complete buyer profile.
+       She is the gatekeeper — her approval unlocks the sale.
+  ════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-vanessa" role="dialog" aria-modal="true" aria-label="Vanessa Persona Profile">
+    <div class="modal-box modal-vanessa-theme">
+
+      <!-- Close button -->
+      <button class="modal-close" data-modal="modal-vanessa" aria-label="Close persona">✕</button>
+
+      <!-- ── Persona Header ── -->
+      <div class="modal-persona-header mph-pink">
+        <div class="modal-avatar mav-pink">V</div>
+        <div class="modal-persona-meta">
+          <div class="modal-persona-name">Vanessa</div>
+          <div class="modal-persona-role">The Household Decision Maker</div>
+          <div class="modal-persona-tagline">"Her veto becomes her championship — the key strategic insight."</div>
+        </div>
+        <!-- Quick stats row -->
+        <div class="modal-stats-row">
+          <div class="modal-stat"><span class="ms-val">38</span><span class="ms-lbl">Age</span></div>
+          <div class="modal-stat"><span class="ms-val">RN / PM</span><span class="ms-lbl">Role</span></div>
+          <div class="modal-stat"><span class="ms-val">HIPAA</span><span class="ms-lbl">Daily</span></div>
+          <div class="modal-stat"><span class="ms-val">2 kids</span><span class="ms-lbl">Family</span></div>
+        </div>
+      </div>
+
+      <!-- ── Modal Body ── -->
+      <div class="modal-body">
+
+        <!-- Job and context -->
+        <div class="modal-section">
+          <h4 class="modal-section-title">Role & Context</h4>
+          <p>Healthcare Practice Manager at a multi-physician outpatient clinic. Spends her workday managing patient scheduling, EHR systems, and staff compliance with HIPAA regulations. She is intimately familiar with what data privacy violations cost — both professionally and personally. She comes home to a house where Marcus's smart devices feel like surveillance.</p>
+        </div>
+
+        <!-- Goals & Fears -->
+        <div class="modal-two-col">
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-coral">Primary Fears</h4>
+            <ul class="modal-list">
+              <li>Her children talking to Alexa about school, friends, and daily life — and that being stored</li>
+              <li>HIPAA contamination — work conversations overheard by always-on devices</li>
+              <li>A data breach that exposes her family's personal schedules, finances, or medical history</li>
+              <li>Bringing another surveillance device into the home under the label "smart home"</li>
+            </ul>
+          </div>
+          <div class="modal-section">
+            <h4 class="modal-section-title tc-teal">What She Actually Wants</h4>
+            <ul class="modal-list">
+              <li>AI that helps with scheduling, meal planning, homework, and home management</li>
+              <li>The assurance that her kids' voices are not stored on a server in another country</li>
+              <li>Something that makes Marcus productive AND keeps the family safe</li>
+              <li>A product she can champion at work as a HIPAA-compliant tool for her team</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- The veto-to-champion dynamic -->
+        <div class="modal-section">
+          <h4 class="modal-section-title">The Veto-to-Champion Dynamic</h4>
+          <div class="veto-champ-flow">
+            <div class="vc-step vc-step-red">
+              <div class="vc-icon">✗</div>
+              <div class="vc-label">Initial Reaction</div>
+              <div class="vc-desc">"Another device that listens to everything? Absolutely not."</div>
+            </div>
+            <div class="vc-arrow">→</div>
+            <div class="vc-step vc-step-amber">
+              <div class="vc-icon">?</div>
+              <div class="vc-label">The Question</div>
+              <div class="vc-desc">"Wait — you're saying it NEVER connects to the internet? How?"</div>
+            </div>
+            <div class="vc-arrow">→</div>
+            <div class="vc-step vc-step-teal">
+              <div class="vc-icon">✓</div>
+              <div class="vc-label">Understanding</div>
+              <div class="vc-desc">"It runs entirely on the box. No cloud. No training. No breach possible."</div>
+            </div>
+            <div class="vc-arrow">→</div>
+            <div class="vc-step vc-step-purple">
+              <div class="vc-icon">★</div>
+              <div class="vc-label">Champion</div>
+              <div class="vc-desc">"I'm showing this to my practice administrator. We need this at the clinic."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day in the life -->
+        <div class="modal-section">
+          <h4 class="modal-section-title">Day in the Life</h4>
+          <div class="day-timeline">
+            <div class="day-item">
+              <div class="day-time">7:00 AM</div>
+              <div class="day-event">Gets kids ready for school. Asks Alexa for the weather — immediately wonders who heard that.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">9:30 AM</div>
+              <div class="day-event">Clinic receives a HIPAA compliance audit notification. Spends 2 hours reviewing voice device policies.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">6:30 PM</div>
+              <div class="day-event">Marcus shows her the local AI product. Initial reaction: skepticism and concern.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">7:15 PM</div>
+              <div class="day-event">Marcus explains local-first architecture. She asks five technical questions. He answers three.</div>
+            </div>
+            <div class="day-item">
+              <div class="day-time">10:00 PM</div>
+              <div class="day-event">She researches the product independently. Reads the architecture page twice. Approves the purchase.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What converts Vanessa -->
+        <div class="modal-section">
+          <h4 class="modal-section-title tc-purple">What Converts Vanessa (The Checklist)</h4>
+          <div class="convert-checklist">
+            <div class="cc-item cc-yes">✓ Confirmation that no audio is ever transmitted to a server</div>
+            <div class="cc-item cc-yes">✓ A technical diagram showing where data lives (local storage only)</div>
+            <div class="cc-item cc-yes">✓ A parental control layer for her children's interactions</div>
+            <div class="cc-item cc-yes">✓ Explicit HIPAA compatibility statement (even for non-clinical home use)</div>
+            <div class="cc-item cc-no">✗ A vague "privacy-first" marketing claim without architecture detail</div>
+            <div class="cc-item cc-no">✗ A monthly subscription that requires a cloud account to function</div>
+          </div>
+        </div>
+
+        <!-- Key marketing message for Vanessa -->
+        <div class="modal-message-callout mmc-pink">
+          <div class="mmc-label">The message that converts Vanessa</div>
+          <div class="mmc-quote">"I manage protected health data at work. At home, I needed something that understood why privacy isn't optional."</div>
+        </div>
+
+      </div><!-- /modal-body -->
+    </div><!-- /modal-box -->
+  </div><!-- /modal-vanessa -->
+
+  <!-- ════════════════════════════════════════════════════════════
+       PROGRESS BAR
+       A thin gradient line across the top of the page that
+       fills as the user scrolls (built in script.js).
+  ════════════════════════════════════════════════════════════ -->
+  <!-- NOTE: The progress bar element is injected dynamically by script.js -->
+
+  <!-- Main JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
